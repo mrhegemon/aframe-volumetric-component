@@ -1,0 +1,56 @@
+﻿<!doctype html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>4DViews - Webplayer Streaming</title>
+
+
+	<!-- ARFRAME SCRIPTS -->
+	<script src="js/aframe.min.js"></script>
+	<script src="js/aframe-ar.js"></script>
+
+</head>
+
+<body style="background-color:#383d44;">
+
+
+	<!-- 4D COMPONENT REGISTERING SCRIPT -->
+	<script src="js/main.js"></script>
+
+	<a-scene embedded arjs>
+
+		<!-- this is 4dView Component -->
+		<a-entity 4dview position="0 0 -5"></a-entity>
+
+
+
+
+		<a-box position="0 0 0"></a-box>
+
+		<!-- this is ar camera component -->
+		<a-marker-camera preset='hiro'></a-marker-camera>
+
+
+	</a-scene>
+
+	<!--Taken from 4dViews WebPlayer JS -->
+
+	<script src="js/fdvWebplayer/resource_manager.js"></script>
+	<script src="js/fdvWebplayer/player4D.js"></script>
+	<script src="js/fdvWebplayer/viewer.js"></script>
+
+	<script src="js/fdvWebplayer/threejs/OrbitControls.js"></script>
+
+	<script src="js/fdvWebplayer/playerUI.js"></script>
+
+	<script async src="js/fdvWebplayer/CODEC.js"></script>
+
+
+
+
+
+</body>
+
+</html>
