@@ -1,1 +1,1 @@
-https://github.com/sergiikoz/4dexample
+https://sergiikoz.github.io/4dexample/
