@@ -80,7 +80,11 @@ function CreatePlayer() {
 
     createViewer();
 
-    File4ds = file4dsDesktop;
+    if (window.navigator.userAgent.includes('Mac')) {
+        File4ds = file4dsMobile;
+    }
+    else
+        File4ds = file4dsDesktop;
 
     Module.Create();
 
@@ -195,8 +199,8 @@ function initPlaying() {
     }, 1.0 / 60.0);
 }
 
-/* Play sequence */      
-    //   document.getElementById('frame4D').innerHTML = (mesh4D.frame + 1);
+/* Play sequence */
+//   document.getElementById('frame4D').innerHTML = (mesh4D.frame + 1);
 
 function playSequence() {
     console.log('start playing sequence, at: ' + resourceManager._sequenceInfo.FrameRate + ' FPS');

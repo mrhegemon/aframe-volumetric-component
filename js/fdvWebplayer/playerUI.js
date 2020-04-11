@@ -7,7 +7,7 @@ function LoadSequence() {
 
 	// Sequence URLs
 	file4dsDesktop = 'assets/Sample4DViews_PresentingHOLOSYS_30fps_FILTERED_DESKTOP_STD.4ds';
-	// file4dsMobile = this.dataset.mobileSequence;
+	file4dsMobile = 'http://a9q6r5f5.stackpathcdn.com/ltd/Sample4DViews_PresentingHOLOSYS_30fps_FILTERED_MOBILE_STD.4ds'; // mobile 4ds link
 
 	// audido url
 	file4dsAudio = 'assets/Sample4DViews_PresentingHOLOSYS_audio.wav';
