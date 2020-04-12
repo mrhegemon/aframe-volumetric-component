@@ -60,8 +60,8 @@ function Init3D() {
         if (meshesCache.length >= maxCacheSize) {
 
             /* hide the waiter splashscreen and play the sequence */
-            // var waiterSplashscreen = document.getElementById('waiter4D');
-            // waiterSplashscreen.style.display = "none";
+            var waiterSplashscreen = document.getElementById('loading');
+            waiterSplashscreen.style.display = "none";
             initPlaying();
 
         } else {
@@ -78,9 +78,7 @@ function CreatePlayer() {
 
     Audio4ds = file4dsAudio;
 
-    createViewer();
-
-    if (window.navigator.userAgent.includes('Mac')) {
+    if (renderer.extensions.get('WEBGL_compressed_texture_astc')) {
         File4ds = file4dsMobile;
     }
     else

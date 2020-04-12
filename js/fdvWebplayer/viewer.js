@@ -4,18 +4,14 @@ var geometry;
 var mesh; // global variable for MESH from MESH SEQUENCE
 var material;
 var textureSize;
-
+var renderer = new THREE.WebGLRenderer();
 var initialized = false;
 
 var bodyTex; // global variable for MESH SEQUENCE TEXTURE
 
 
-function createViewer() {
-  
-}
-
+var object4D = new THREE.Object3D();
 // initializes 4dviews mesh
-
 function init(nbFrames, nbBlocs, framerate, maxVertices, maxTriangles, textureEncoding, textureSizeX, textureSizeY) {
     geometry = new THREE.BufferGeometry();
 
@@ -46,6 +42,9 @@ function init(nbFrames, nbBlocs, framerate, maxVertices, maxTriangles, textureEn
 
     textureSize = textureSizeX;
 
+    object4D.add(mesh);
+    
+
     initialized = true;
 }
 
@@ -72,11 +71,111 @@ function updateMesh(Verts, Faces, UVs, Texture, nbVerts, nbFaces) {
     mipmaps.push(mipmap);
 
 
-    
+
     bodyTex.mipmaps = mipmaps;
     bodyTex.needsUpdate = true
     material.needsUpdate = true;
 
 
+}
+
+
+
+// LOAD SEQUENCE
+function LoadSequence() {
+
+    if (!instance) {
+        CreatePlayer();
+        isAudiomuted = false;
+    }
+    else {
+        console.log('CHANGE SEQUENCE sequence');
+        DestroyPlayer(function () {
+
+            CreatePlayer();
+            isAudiomuted = false;
+
+
+        });
+    }
+
+    load4dObject(object4D);
+}
+
+// MESH SEQUENCE LOADING PROGRESS
+
+function ProgressWaiter() {
+    var percent = meshesCache.length / maxCacheSize;
+
+    console.error((percent * 100) + "%")
+}
+
+// Free memory on window loosing focus
+window.onblur = function () {
+    pauseSequence();
+}
+
+// Free memory on window closing
+window.onunload = function () {
+    DestroyPlayer();
+}
+
+window.onfocus = function () {
+    playSequence();
+}
+
+
+var current_mode = screen.orientation;
+
+var file4dsAudio, file4dsMobile, file4dsDesktop;
+
+var capturesList = [
+    {
+        audio: 'assets/Sample4DViews_PresentingHOLOSYS_audio.wav',
+        desktop: 'assets/Sample4DViews_PresentingHOLOSYS_30fps_FILTERED_DESKTOP_STD.4ds',
+        mobile: 'assets/Sample4DViews_PresentingHOLOSYS_30fps_FILTERED_MOBILE_STD.4ds'
+    },
+    {
+        desktop: 'assets/hulahoop_30_proc_mobile.4ds',
+        mobile: 'assets/hulahoop_30_proc_mobile.4ds'
+    }
+
+];
+
+
+var index = 0;
+document.getElementById('prev').onclick = () => {
+
+    index--;
+    if (index < 0) index = capturesList.length;
+    StartStreaming(capturesList[index]);
+
+}
+
+document.getElementById('next').onclick = () => {
+
+    index++;
+    if (index > capturesList.length - 1) index = 0;
+    StartStreaming(capturesList[index]);
+
+}
+
+document.getElementById('play').onclick = () => {
+
+    index = 0;
+    StartStreaming(capturesList[index]);
+
+}
+
+// LOAD DESIRED 4D Capture Data
+function StartStreaming(capture) {
+
+    file4dsAudio = capture.audio;
+    file4dsMobile = capture.mobile;
+    file4dsDesktop = capture.desktop;
+    var waiterSplashscreen = document.getElementById('loading');
+    waiterSplashscreen.style.display = "block";
+    DestroyPlayer();
+    LoadSequence();
 }
 
